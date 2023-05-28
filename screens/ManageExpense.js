@@ -1,11 +1,11 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { AppContext } from '../context/AppContext';
+
+import ExpenseForm from '../components/ManageExpense/ExpenseForm';
 import IconButton from '../components/UI/IconButton';
 import { GlobalStyles } from './../constants/styles';
-
-import { AppContext } from '../context/AppContext';
-import { useContext } from 'react';
-import ExpenseForm from '../components/ManageExpense/ExpenseForm';
+import { storeExpense } from '../util/http';
 
 const ManageExpense = ({ route, navigation }) => {
   const editedExpenseId = route.params?.expenseId;
@@ -38,6 +38,7 @@ const ManageExpense = ({ route, navigation }) => {
       updateExpense(editedExpenseId, expenseData);
     } else {
       addExpense(expenseData);
+      storeExpense(expenseData);
     }
     navigation.goBack();
   };
