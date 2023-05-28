@@ -1,8 +1,13 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const AllExpenses = () => {
-  return <Text>AllExpenses</Text>;
+  const appContext = useContext(AppContext);
+  const expenses = appContext.expenses;
+
+  return <ExpensesOutput expenses={expenses} expensesPeriod='Total' />;
 };
 
 export default AllExpenses;
