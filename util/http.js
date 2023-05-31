@@ -1,18 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BACKEND_URL = "https://expenseapp-c076f-default-rtdb.firebaseio.com";
+const BACKEND_URL = 'https://expenseapp-c076f-default-rtdb.firebaseio.com';
 
 export const storeExpense = async (expense) => {
-  const response = await axios.post(BACKEND_URL + "/expenses.json", expense);
+  const response = await axios.post(BACKEND_URL + '/expenses.json', expense);
   const id = response.data.name;
   return id;
 };
 
 export const fetchExpenses = async () => {
-  const response = await axios.get(BACKEND_URL + "/expenses.json");
+  const response = await axios.get(BACKEND_URL + '/expenses.json');
 
   const expenses = [];
-  console.log(response.data);
+  // console.log(response.data);
 
   for (const key in response.data) {
     const expenseObj = {
@@ -25,4 +25,12 @@ export const fetchExpenses = async () => {
   }
 
   return expenses;
+};
+
+export const updateExpenseServerData = (id, expenseData) => {
+  return axios.patch(BACKEND_URL + `/expenses/${id}.json`, expenseData);
+};
+
+export const deleteExpenseServerData = (id) => {
+  return axios.delete(BACKEND_URL + `/expenses/${id}.json`);
 };
